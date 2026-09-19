@@ -93,6 +93,9 @@ function getEmptyMessage() {
   if (currentFilter === 'active') {
     return '太棒了,沒有未完成的事項!';
   }
+  if (currentFilter === 'completed') {
+    return '目前沒有已完成的事項。這些待辦只是被篩選條件過濾掉,並沒有被刪除。';
+  }
   return '還沒有已完成的事項。';
 }
 
