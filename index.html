@@ -1,35 +1,51 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>待辦清單</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的待辦清單</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="card">
-    <h1 class="title">待辦清單</h1>
+  <main class="app">
+    <header class="app-header">
+      <h1>📝 我的待辦清單</h1>
+      <!-- 深色模式切換 -->
+      <button id="theme-toggle" type="button" class="btn-theme" aria-pressed="false">
+        <span id="theme-icon">🌙</span>
+        <span id="theme-label">深色模式</span>
+      </button>
+    </header>
 
-    <!-- 新增待辦事項的輸入區域 -->
-    <form id="todo-form" class="input-row">
+    <!-- 新增待辦的表單 -->
+    <form id="todo-form" class="todo-form" autocomplete="off">
+      <label class="sr-only" for="todo-input">待辦事項內容</label>
       <input
-        type="text"
         id="todo-input"
-        placeholder="輸入待辦事項..."
-        autocomplete="off"
-      />
-      <button type="submit" id="add-btn">新增</button>
+        class="todo-input"
+        type="text"
+        placeholder="今天要做什麼?"
+        maxlength="100"
+        required
+      >
+      <button type="submit" class="btn-add">新增</button>
     </form>
 
-    <!-- 待辦事項清單 -->
-    <ul id="todo-list" class="todo-list"></ul>
+    <!-- 篩選:全部 / 未完成 / 已完成 -->
+    <div class="filters" role="group" aria-label="篩選待辦事項">
+      <button type="button" class="btn-filter is-active" data-filter="all" aria-pressed="true">全部</button>
+      <button type="button" class="btn-filter" data-filter="active" aria-pressed="false">未完成</button>
+      <button type="button" class="btn-filter" data-filter="completed" aria-pressed="false">已完成</button>
+    </div>
 
-    <!-- 清單為空時顯示的提示文字 -->
-    <p id="empty-hint" class="empty-hint">還沒有任何待辦事項，新增一個吧！</p>
+    <!-- 待辦清單本體,內容由 app.js 動態產生 -->
+    <ul id="todo-list" class="todo-list" aria-live="polite"></ul>
 
-    <!-- 底部顯示未完成項目數量 -->
-    <footer class="footer">
-      <span id="remaining-count">未完成：0 項</span>
+    <!-- 清單為空時顯示的提示 -->
+    <p id="empty-state" class="empty-state" hidden>還沒有任何待辦事項,新增一個吧!</p>
+
+    <footer class="app-footer">
+      <span id="remaining-count">未完成:0 項</span>
     </footer>
   </main>
 
