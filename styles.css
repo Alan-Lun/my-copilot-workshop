@@ -7,53 +7,11 @@
   --color-text: #2c2c2c;
   --color-text-muted: #9a9a9a;
   --color-border: #e5e7eb;
-  --color-input-bg: #ffffff;
-  --color-button-text: #ffffff;
-  --color-filter-bg: #f7f8fa;
-  --color-filter-active-text: #ffffff;
   --color-danger: #ff5c5c;
   --color-danger-hover: #e04444;
   --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.08);
   --radius-lg: 16px;
   --radius-md: 10px;
-}
-
-/* 手動選擇主題時使用的深色配色 */
-:root[data-theme="dark"] {
-  --color-bg: #171a21;
-  --color-card-bg: #242832;
-  --color-primary: #7d9cff;
-  --color-primary-hover: #9bb3ff;
-  --color-text: #f3f4f6;
-  --color-text-muted: #aeb5c2;
-  --color-border: #414856;
-  --color-input-bg: #1d2129;
-  --color-button-text: #171a21;
-  --color-filter-bg: #303641;
-  --color-filter-active-text: #171a21;
-  --color-danger: #ff7777;
-  --color-danger-hover: #ff9292;
-  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.28);
-}
-
-/* 沒有手動選擇時，沿用作業系統的深色設定 */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    --color-bg: #171a21;
-    --color-card-bg: #242832;
-    --color-primary: #7d9cff;
-    --color-primary-hover: #9bb3ff;
-    --color-text: #f3f4f6;
-    --color-text-muted: #aeb5c2;
-    --color-border: #414856;
-    --color-input-bg: #1d2129;
-    --color-button-text: #171a21;
-    --color-filter-bg: #303641;
-    --color-filter-active-text: #171a21;
-    --color-danger: #ff7777;
-    --color-danger-hover: #ff9292;
-    --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.28);
-  }
 }
 
 * {
@@ -82,37 +40,10 @@ body {
   padding: 24px;
 }
 
-.title-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
 .title {
-  margin: 0;
+  margin: 0 0 20px;
+  text-align: center;
   font-size: 1.5rem;
-}
-
-.theme-toggle,
-.filter-btn {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  background-color: var(--color-filter-bg);
-  color: var(--color-text);
-  cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
-}
-
-.theme-toggle {
-  padding: 8px 10px;
-  white-space: nowrap;
-}
-
-.theme-toggle:hover,
-.filter-btn:hover {
-  border-color: var(--color-primary);
 }
 
 .input-row {
@@ -126,8 +57,6 @@ body {
   padding: 10px 12px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  background-color: var(--color-input-bg);
-  color: var(--color-text);
   font-size: 1rem;
 }
 
@@ -141,28 +70,10 @@ body {
   border: none;
   border-radius: var(--radius-md);
   background-color: var(--color-primary);
-  color: var(--color-button-text);
+  color: #fff;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.15s ease;
-}
-
-.filter-row {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.filter-btn {
-  flex: 1;
-  padding: 8px 10px;
-  font-size: 0.95rem;
-}
-
-.filter-btn.active {
-  border-color: var(--color-primary);
-  background-color: var(--color-primary);
-  color: var(--color-filter-active-text);
 }
 
 #add-btn:hover {
@@ -208,7 +119,7 @@ body {
 .delete-btn {
   border: none;
   background-color: var(--color-danger);
-  color: var(--color-button-text);
+  color: #fff;
   border-radius: var(--radius-md);
   padding: 6px 10px;
   cursor: pointer;

@@ -9,35 +9,6 @@
   const list = document.getElementById("todo-list");
   const emptyHint = document.getElementById("empty-hint");
   const remainingCount = document.getElementById("remaining-count");
-  const themeToggle = document.getElementById("theme-toggle");
-  const filterButtons = document.querySelectorAll(".filter-btn");
-
-  const THEME_STORAGE_KEY = "todo-list-theme";
-  const filterEmptyMessages = {
-    all: "還沒有任何待辦事項，新增一個吧！",
-    active: "目前沒有未完成的待辦事項。",
-    completed: "目前沒有已完成的待辦事項。",
-  };
-  let currentFilter = "all";
-  const systemThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-  // 套用手動選擇的主題；沒有選擇時交由 CSS 配合系統設定處理
-  function applyTheme(theme) {
-    const hasManualTheme = theme === "light" || theme === "dark";
-    document.documentElement.toggleAttribute("data-theme", hasManualTheme);
-    if (hasManualTheme) {
-      document.documentElement.dataset.theme = theme;
-    }
-
-    const isDark = hasManualTheme
-      ? theme === "dark"
-      : systemThemeQuery.matches;
-    themeToggle.textContent = isDark ? "☀️ 淺色模式" : "🌙 深色模式";
-    themeToggle.setAttribute("aria-pressed", String(isDark));
-  }
-
-  // 初始化主題，沒有使用者選擇時跟隨作業系統
-  applyTheme(localStorage.getItem(THEME_STORAGE_KEY));
 
   // 從 localStorage 讀取待辦事項，讀取失敗時回傳空陣列
   function loadTodos() {
@@ -60,17 +31,10 @@
   function render() {
     list.innerHTML = "";
 
-    const visibleTodos = todos.filter((todo) => {
-      if (currentFilter === "active") return !todo.completed;
-      if (currentFilter === "completed") return todo.completed;
-      return true;
-    });
+    // 清單為空時顯示提示文字，否則隱藏
+    emptyHint.style.display = todos.length === 0 ? "block" : "none";
 
-    // 篩選後沒有項目時顯示對應提示文字
-    emptyHint.textContent = filterEmptyMessages[currentFilter];
-    emptyHint.style.display = visibleTodos.length === 0 ? "block" : "none";
-
-    visibleTodos.forEach((todo) => {
+    todos.forEach((todo) => {
       const li = document.createElement("li");
       li.className = "todo-item" + (todo.completed ? " completed" : "");
       li.dataset.id = todo.id;
@@ -137,32 +101,6 @@
     addTodo(input.value);
     input.value = "";
     input.focus();
-  });
-
-  themeToggle.addEventListener("click", () => {
-    const isDark = document.documentElement.dataset.theme === "dark" ||
-      (!document.documentElement.dataset.theme && systemThemeQuery.matches);
-    const nextTheme = isDark ? "light" : "dark";
-    localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
-    applyTheme(nextTheme);
-  });
-
-  systemThemeQuery.addEventListener("change", () => {
-    if (!localStorage.getItem(THEME_STORAGE_KEY)) {
-      applyTheme();
-    }
-  });
-
-  filterButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      currentFilter = button.dataset.filter;
-      filterButtons.forEach((filterButton) => {
-        const isActive = filterButton === button;
-        filterButton.classList.toggle("active", isActive);
-        filterButton.setAttribute("aria-pressed", String(isActive));
-      });
-      render();
-    });
   });
 
   render();
