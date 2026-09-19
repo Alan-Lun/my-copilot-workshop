@@ -8,7 +8,10 @@
 </head>
 <body>
   <main class="card">
-    <h1 class="title">待辦清單</h1>
+    <header class="title-row">
+      <h1 class="title">待辦清單</h1>
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-pressed="false"></button>
+    </header>
 
     <!-- 新增待辦事項的輸入區域 -->
     <form id="todo-form" class="input-row">
@@ -20,6 +23,13 @@
       />
       <button type="submit" id="add-btn">新增</button>
     </form>
+
+    <!-- 篩選待辦事項的按鈕 -->
+    <div class="filter-row" aria-label="待辦事項篩選">
+      <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">全部</button>
+      <button type="button" class="filter-btn" data-filter="active" aria-pressed="false">未完成</button>
+      <button type="button" class="filter-btn" data-filter="completed" aria-pressed="false">已完成</button>
+    </div>
 
     <!-- 待辦事項清單 -->
     <ul id="todo-list" class="todo-list"></ul>
